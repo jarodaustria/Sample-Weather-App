@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Sample Weather App</title>
+    <style>
+        form {
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+        }
+        .center {
+                margin: auto;
+                width: 50%;
+                /* border: 3px solid green; */
+                padding: 10px;
+        }
+    </style>
+    {% if form and data.cod != '404'%}
+        {% if data.weather[0].main == "Rain" %}
+        <style>
+            body {
+                background: #64b5f6;
+            }
+        </style>
+        {% elif data.weather[0].main == "Clouds"%}
+        <style>
+            body {
+                background: #d6d6d6;
+            }
+        </style>
+        {% elif data.weather[0].main == "Drizzle"%}
+        <style>
+            body {
+                background: #b3e5fc;
+            }
+        </style>
+        {% elif data.weather[0].main == "Thunderstorm"%}
+        <style>
+            body {
+                background: #424242;
+            }
+        </style>
+        {% elif data.weather[0].main == "Clear" %}
+        <style>
+            body {
+                background: #fff9c4;
+            }
+        </style>
+        {% endif %}
+    {% endif %}
+</head>
+
+<body>
+    <div class="center">
+        <h1>
+            Sample Weather App
+        </h1>
+        {% if form %}
+            {% if data.cod == '404'%}
+                <h1>
+                    {{ data.message }}<br>
+                    &nbsp<br>
+                </h1>
+            {% else %}
+                <h1>
+                    {{ data.main.temp }}&deg <br>
+                    {{ data.weather[0].main }} <br>
+                </h1>
+            {%endif%}
+        
+        {% else %}
+        <h1>
+            &nbsp<br>
+            &nbsp<br>
+        </h1>
+        {% endif %}
+        <form method="POST">
+            <label> Enter a City: </label>
+            <input name="city">
+            <input type="submit">
+        </form>
+    </div>
+</body>
+
+</html>
